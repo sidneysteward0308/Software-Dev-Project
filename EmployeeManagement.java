@@ -11,7 +11,7 @@ public class EmployeeManagement {
 
     public static void displayEmployeeMonthlyStatement() {
         //SQL DATABASE INFO
-        String url = "jdbc:mysql://localhost:3306/employeedata"; 
+        String url = "jdbc:mysql://localhost:3306/employee_management"; 
         String user = "root"; 
         String password = "<pw>"; 
 
