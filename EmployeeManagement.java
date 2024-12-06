@@ -47,3 +47,45 @@ public class EmployeeManagement {
         }
     }
 }
+
+
+ // Function to display employee pay statement history (Total Pay)
+    public static void displayEmployeePayHistory() {
+        // SQL Database Info
+        String url = "jdbc:mysql://localhost:3306/employee_management";
+        String user = "root";
+        String password = "Manner18$"; // Replace with your actual password
+
+        // SQL query to calculate total pay history
+        String query = "SELECT first_name, last_name, salary, months_worked, " +
+                "(salary * months_worked) AS total_pay " +
+                "FROM Employee";
+
+        // Connects to the database
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+            // Executes the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Display Employee Pay Statement History
+            System.out.println("\nEmployee Pay Statement History:");
+            System.out.printf("%-15s %-15s %-10s %-15s %-15s%n", "First Name", "Last Name", "Salary", "Months Worked", "Total Pay");
+
+            // Iterates through the result set
+            while (rs.next()) {
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                double salary = rs.getDouble("salary");
+                int monthsWorked = rs.getInt("months_worked");
+                double totalPay = rs.getDouble("total_pay");
+
+                System.out.printf("%-15s %-15s %-10.2f %-15d %-15.2f%n", firstName, lastName, salary, monthsWorked, totalPay);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
